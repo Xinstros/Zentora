@@ -101,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Custom user model
 AUTH_USER_MODEL = 'accounts.ZentoraUser'
+# redirects users to timeline
+LOGIN_REDIRECT_URL = '/timeline/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
