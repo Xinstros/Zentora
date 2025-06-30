@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm, TaskForm, RequestForm
-from .models import Task, Request
+from .forms import SignupForm, TaskForm, RequestForm, ArtworkForm
+from .models import Task, Request, Artwork
 
 def signup(request):
     if request.method == 'POST':
@@ -109,3 +109,23 @@ def marketplace(request):
         'requests': requests,
         'is_dev': request.user.is_authenticated and request.user.account_type == 'DEV'
     })
+
+def artwork_create(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if request.method == 'POST':
+        form = ArtworkForm(request.POST, request.FILES)
+        if form.is_valid():
+            artwork = form.save(commit=False)
+            artwork.user = request.user
+            artwork.save()
+            return redirect('artwork_list')
+    else:
+        form = ArtworkForm()
+    return render(request, 'accounts/artwork_form.html', {'form': form})
+
+def artwork_list(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    artworks = Artwork.objects.filter(user=request.user)
+    return render(request, 'accounts/artwork_list.html', {'artworks': artworks})

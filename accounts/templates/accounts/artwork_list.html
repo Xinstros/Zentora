@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora Artworks</title>
+</head>
+<body>
+    <h1>Your Artworks</h1>
+    <a href="{% url 'artwork_create' %}">Upload Artwork</a>
+    {% if user.account_type == 'DEV' %}
+        <a href="{% url 'timeline' %}">Back to Timeline</a>
+    {% endif %}
+    <ul>
+    {% for artwork in artworks %}
+        <li>{{ artwork.title }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }})</li>
+    {% empty %}
+        <li>No artworks yet.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

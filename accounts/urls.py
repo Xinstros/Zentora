@@ -15,4 +15,6 @@ urlpatterns = [
     path('requests/<int:pk>/update/', views.request_update, name='request_update'),
     path('requests/<int:pk>/delete/', views.request_delete, name='request_delete'),
     path('marketplace/', views.marketplace, name='marketplace'),
+    path('artwork/', views.artwork_list, name='artwork_list'),
+    path('artwork/create/', views.artwork_create, name='artwork_create'),
 ]

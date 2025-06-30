@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora Upload Artwork</title>
+</head>
+<body>
+    <h1>Upload Artwork</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <a href="{% url 'artwork_list' %}">Back to Artworks</a>
+</body>
+</html>
