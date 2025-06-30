@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import ZentoraUser
-from .models import Task
+from .models import ZentoraUser, Task
 
 #signup form
 class SignupForm(UserCreationForm):
