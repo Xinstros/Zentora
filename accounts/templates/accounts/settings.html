@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block content %}
-    <h1>Settings</h1>
+    <h1 class="mb-4">Settings</h1>
     <p>Settings page coming soon!</p>
-    {% if user.account_type == 'DEV' %}
-        <a href="{% url 'timeline' %}">Back to Timeline</a>
-    {% else %}
-        <a href="{% url 'marketplace' %}">Back to Marketplace</a>
-    {% endif %}
+    <div class="d-flex gap-2">
+        {% if user.account_type == 'DEV' %}
+            <a href="{% url 'timeline' %}" class="btn btn-secondary">Back to Timeline</a>
+        {% else %}
+            <a href="{% url 'marketplace' %}" class="btn btn-secondary">Back to Marketplace</a>
+        {% endif %}
+    </div>
 {% endblock %}

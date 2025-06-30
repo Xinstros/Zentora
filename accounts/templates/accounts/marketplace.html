@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Marketplace{% endblock %}
 {% block content %}
-    <h1>Art Request Marketplace</h1>
-    <h2>Requests</h2>
-    <ul>
+    <h1 class="mb-4">Art Request Marketplace</h1>
+    <h2 class="h4 mt-4">Requests</h2>
+    <div class="list-group">
     {% for request in requests %}
-        <li>{{ request.title }} by {{ request.user.username }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</li>
+        <div class="list-group-item">{{ request.title }} by {{ request.user.username }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</div>
     {% empty %}
-        <li>No requests available.</li>
+        <div class="list-group-item">No requests available.</div>
     {% endfor %}
-    </ul>
-    <h2>Artworks</h2>
-    <ul>
+    </div>
+    <h2 class="h4 mt-4">Artworks</h2>
+    <div class="list-group">
     {% for artwork in artworks %}
-        <li>{{ artwork.title }} by {{ artwork.user.username }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }})</li>
+        <div class="list-group-item">{{ artwork.title }} by {{ artwork.user.username }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }})</div>
     {% empty %}
-        <li>No artworks available.</li>
+        <div class="list-group-item">No artworks available.</div>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
+

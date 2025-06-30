@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Requests{% endblock %}
 {% block content %}
-    <h1>Your Art Requests</h1>
-    <a href="{% url 'request_create' %}">Create Request</a>
-    {% if user.account_type == 'DEV' %}
-        <a href="{% url 'timeline' %}">Back to Timeline</a>
-    {% endif %}
-    <ul>
+    <h1 class="mb-4">Your Art Requests</h1>
+    <div class="d-flex gap-2 mb-3">
+        <a href="{% url 'request_create' %}" class="btn btn-success">Create Request</a>
+        {% if user.account_type == 'DEV' %}
+            <a href="{% url 'timeline' %}" class="btn btn-secondary">Back to Timeline</a>
+        {% endif %}
+    </div>
+    <div class="list-group">
     {% for request in requests %}
-        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }}) 
-            <a href="{% url 'request_update' request.pk %}">Edit</a>
-            <a href="{% url 'request_delete' request.pk %}">Delete</a>
-        </li>
+        <div class="list-group-item">
+            {{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }}) 
+            <div class="d-flex gap-2 mt-2">
+                <a href="{% url 'request_update' request.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'request_delete' request.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
     {% empty %}
-        <li>No requests yet.</li>
+        <div class="list-group-item">No requests yet.</div>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
-

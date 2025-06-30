@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Upload Artwork{% endblock %}
 {% block content %}
-    <h1>{% if form.instance.pk %}Edit Artwork{% else %}Upload Artwork{% endif %}</h1>
-    <form method="post" enctype="multipart/form-data">
+    <h1 class="mb-4">{% if form.instance.pk %}Edit Artwork{% else %}Upload Artwork{% endif %}</h1>
+    <form method="post" enctype="multipart/form-data" class="card p-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">{% if form.instance.pk %}Update{% else %}Upload{% endif %}</button>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Upload{% endif %}</button>
+            <a href="{% url 'artwork_list' %}" class="btn btn-secondary">Back to Artworks</a>
+        </div>
     </form>
-    <a href="{% url 'artwork_list' %}">Back to Artworks</a>
 {% endblock %}

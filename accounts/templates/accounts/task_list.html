@@ -2,48 +2,56 @@
 {% block title %}Tasks{% endblock %}
 {% load task_filters %}
 {% block content %}
-    <h1>Your Tasks, {{ user.username }}</h1>
-    <a href="{% url 'task_create' %}">Add Task</a>
-    <div class="kanban">
-        <div class="column">
-            <h2>To Do</h2>
-            <ul>
+    <h1 class="mb-4">Your Tasks, {{ user.username }}</h1>
+    <a href="{% url 'task_create' %}" class="btn btn-success mb-3">Add Task</a>
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="h4">To Do</h2>
+            <div class="list-group">
             {% for task in tasks|filter:"status:TO DO" %}
-                <li>{{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
-                    <a href="{% url 'task_update' task.pk %}">Edit</a>
-                    <a href="{% url 'task_delete' task.pk %}">Delete</a>
-                </li>
+                <div class="list-group-item">
+                    {{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
+                    <div class="d-flex gap-2 mt-2">
+                        <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
             {% empty %}
-                <li>No tasks.</li>
+                <div class="list-group-item">No tasks.</div>
             {% endfor %}
-            </ul>
+            </div>
         </div>
-        <div class="column">
-            <h2>In Progress</h2>
-            <ul>
+        <div class="col-md-4">
+            <h2 class="h4">In Progress</h2>
+            <div class="list-group">
             {% for task in tasks|filter:"status:IN_PROGRESS" %}
-                <li>{{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
-                    <a href="{% url 'task_update' task.pk %}">Edit</a>
-                    <a href="{% url 'task_delete' task.pk %}">Delete</a>
-                </li>
+                <div class="list-group-item">
+                    {{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
+                    <div class="d-flex gap-2 mt-2">
+                        <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
             {% empty %}
-                <li>No tasks.</li>
+                <div class="list-group-item">No tasks.</div>
             {% endfor %}
-            </ul>
+            </div>
         </div>
-        <div class="column">
-            <h2>Done</h2>
-            <ul>
+        <div class="col-md-4">
+            <h2 class="h4">Done</h2>
+            <div class="list-group">
             {% for task in tasks|filter:"status:DONE" %}
-                <li>{{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
-                    <a href="{% url 'task_update' task.pk %}">Edit</a>
-                    <a href="{% url 'task_delete' task.pk %}">Delete</a>
-                </li>
+                <div class="list-group-item">
+                    {{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
+                    <div class="d-flex gap-2 mt-2">
+                        <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
             {% empty %}
-                <li>No tasks.</li>
+                <div class="list-group-item">No tasks.</div>
             {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
 {% endblock %}
-

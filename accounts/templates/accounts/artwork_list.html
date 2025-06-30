@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Artworks{% endblock %}
 {% block content %}
-    <h1>Your Artworks</h1>
-    <a href="{% url 'artwork_create' %}">Upload Artwork</a>
-    {% if user.account_type == 'DEV' %}
-        <a href="{% url 'timeline' %}">Back to Timeline</a>
-    {% endif %}
-    <ul>
+    <h1 class="mb-4">Your Artworks</h1>
+    <div class="d-flex gap-2 mb-3">
+        <a href="{% url 'artwork_create' %}" class="btn btn-success">Upload Artwork</a>
+        {% if user.account_type == 'DEV' %}
+            <a href="{% url 'timeline' %}" class="btn btn-secondary">Back to Timeline</a>
+        {% endif %}
+    </div>
+    <div class="list-group">
     {% for artwork in artworks %}
-        <li>{{ artwork.title }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }}) 
-            <a href="{% url 'artwork_update' artwork.pk %}">Edit</a>
-            <a href="{% url 'artwork_delete' artwork.pk %}">Delete</a>
-        </li>
+        <div class="list-group-item">
+            {{ artwork.title }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }}) 
+            <div class="d-flex gap-2 mt-2">
+                <a href="{% url 'artwork_update' artwork.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'artwork_delete' artwork.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+        </div>
     {% empty %}
-        <li>No artworks yet.</li>
+        <div class="list-group-item">No artworks yet.</div>
     {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
