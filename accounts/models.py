@@ -18,3 +18,17 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Request(models.Model):
+    user = models.ForeignKey('ZentoraUser', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    style = models.CharField(max_length=100, blank=True)
+    genre = models.CharField(max_length=100, blank=True)
+    deadline = models.DateField()
+    reward_type = models.CharField(max_length=10, choices=[('CASH', 'Cash'), ('CRYPTO', 'Crypto')])
+    reward_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

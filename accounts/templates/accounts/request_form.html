@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora Create Request</title>
+</head>
+<body>
+    <h1>Create Art Request</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Request</button>
+    </form>
+    <a href="{% url 'request_list' %}">Back to Requests</a>
+</body>
+</html>

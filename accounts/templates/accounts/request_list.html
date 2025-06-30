@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora Requests</title>
+</head>
+<body>
+    <h1>Your Art Requests</h1>
+    <a href="{% url 'request_create' %}">Create Request</a>
+    <a href="{% url 'timeline' %}">Back to Timeline</a>
+    <ul>
+    {% for request in requests %}
+        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</li>
+    {% empty %}
+        <li>No requests yet.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

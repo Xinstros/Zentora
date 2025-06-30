@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import ZentoraUser, Task
+from .models import ZentoraUser, Task, Request
 
 #signup form
 class SignupForm(UserCreationForm):
@@ -15,4 +15,12 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'deadline', 'status']
         widgets = {'deadline': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = Request
+        fields = ['title', 'description', 'style', 'genre', 'deadline', 'reward_type', 'reward_amount']
+        widgets = {
+            'deadline': forms.DateInput(attrs={'type': 'date'}),
         }

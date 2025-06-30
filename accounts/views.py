@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm, TaskForm
-from .models import Task
+from .forms import SignupForm, TaskForm, RequestForm
+from .models import Task, Request
 
 def signup(request):
     if request.method == 'POST':
@@ -60,3 +60,23 @@ def task_delete(request, pk):
         task.delete()
         return redirect('task_list')
     return render(request, 'accounts/task_delete.html', {'task': task})
+
+def request_create(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            request_obj = form.save(commit=False)
+            request_obj.user = request.user
+            request_obj.save()
+            return redirect('request_list')
+    else:
+        form = RequestForm()
+    return render(request, 'accounts/request_form.html', {'form': form})
+
+def request_list(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    requests = Request.objects.filter(user=request.user)
+    return render(request, 'accounts/request_list.html', {'requests': requests})
