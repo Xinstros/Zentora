@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+    <h1>Settings</h1>
+    <p>Settings page coming soon!</p>
+    {% if user.account_type == 'DEV' %}
+        <a href="{% url 'timeline' %}">Back to Timeline</a>
+    {% else %}
+        <a href="{% url 'marketplace' %}">Back to Marketplace</a>
+    {% endif %}
+{% endblock %}

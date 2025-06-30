@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora - {% block title %}{% endblock %}</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-sizing: border-box; /* Prevent padding from causing overflow */
+        }
+        .header h1 { margin: 0; font-size: 24px; }
+        .header-right { display: flex; align-items: center; gap: 15px; margin-right: 20px; }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #444;
+            border-radius: 4px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1001;
+            min-width: 120px;
+        }
+        .dropdown a, .dropdown form {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .dropdown a:hover { text-decoration: underline; }
+        .logout-btn { 
+            background: none; 
+            border: none; 
+            color: white; 
+            cursor: pointer; 
+            padding: 0; 
+            font: inherit;
+            text-align: left; 
+        }
+        .logout-btn:hover { text-decoration: underline; }
+        .content { margin-top: 60px; padding: 20px; }
+    </style>
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById('profile-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Zentora</h1>
+        <div class="header-right">
+            {% if user.is_authenticated %}
+                <img src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}https://via.placeholder.com/40{% endif %}" class="profile-pic" onclick="toggleDropdown()" alt="Profile Picture">
+                <div id="profile-dropdown" class="dropdown">
+                    <a href="{% url 'settings' %}">Settings</a>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">Logout</button>
+                    </form>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}" style="color: white;">Login</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

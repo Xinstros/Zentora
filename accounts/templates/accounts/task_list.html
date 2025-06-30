@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zentora Tasks</title>
-    <style>
-        .kanban { display: flex; gap: 20px; }
-        .column { flex: 1; border: 1px solid #ccc; padding: 10px; }
-        .column h2 { text-align: center; }
-        .column ul { list-style: none; padding: 0; }
-        .column li { margin: 10px 0; }
-    </style>
-</head>
-<body>
-    {% load task_filters %}
+{% extends 'base.html' %}
+{% block title %}Tasks{% endblock %}
+{% load task_filters %}
+{% block content %}
     <h1>Your Tasks, {{ user.username }}</h1>
     <a href="{% url 'task_create' %}">Add Task</a>
-    <a href="{% url 'timeline' %}">Back to Timeline</a>
     <div class="kanban">
         <div class="column">
             <h2>To Do</h2>
             <ul>
-            {% for task in tasks|filter:"status:TODO" %}
+            {% for task in tasks|filter:"status:TO DO" %}
                 <li>{{ task.title }} (Due: {{ task.deadline|date:"Y-m-d" }}) 
                     <a href="{% url 'task_update' task.pk %}">Edit</a>
                     <a href="{% url 'task_delete' task.pk %}">Delete</a>
@@ -56,5 +45,5 @@
             </ul>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
+

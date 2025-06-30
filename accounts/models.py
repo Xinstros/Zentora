@@ -7,6 +7,7 @@ class ZentoraUser(AbstractUser):
         ('USER', 'Regular User'),
     )
     account_type = models.CharField(max_length=4, choices=ACCOUNT_TYPES, default='USER')
+    profile_picture = models.ImageField(upload_to='profiles/', null=True, blank=True)
 
 class Task(models.Model):
     user = models.ForeignKey('ZentoraUser', on_delete=models.CASCADE)

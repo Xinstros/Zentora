@@ -129,3 +129,6 @@ def artwork_list(request):
         return redirect('login')
     artworks = Artwork.objects.filter(user=request.user)
     return render(request, 'accounts/artwork_list.html', {'artworks': artworks})
+
+def settings(request):
+    return render(request, 'accounts/settings.html', {})

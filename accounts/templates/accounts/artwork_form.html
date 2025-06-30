@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zentora Upload Artwork</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Upload Artwork{% endblock %}
+{% block content %}
     <h1>Upload Artwork</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -11,5 +8,4 @@
         <button type="submit">Upload</button>
     </form>
     <a href="{% url 'artwork_list' %}">Back to Artworks</a>
-</body>
-</html>
+{% endblock %}

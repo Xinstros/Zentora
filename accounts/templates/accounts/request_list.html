@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zentora Requests</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Requests{% endblock %}
+{% block content %}
     <h1>Your Art Requests</h1>
     <a href="{% url 'request_create' %}">Create Request</a>
-    <a href="{% url 'timeline' %}">Back to Timeline</a>
+    {% if user.account_type == 'DEV' %}
+        <a href="{% url 'timeline' %}">Back to Timeline</a>
+    {% endif %}
     <ul>
     {% for request in requests %}
-        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})
+        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }}) 
             <a href="{% url 'request_update' request.pk %}">Edit</a>
             <a href="{% url 'request_delete' request.pk %}">Delete</a>
         </li>
@@ -17,5 +16,5 @@
         <li>No requests yet.</li>
     {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
+

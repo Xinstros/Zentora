@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zentora Add Task</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Add Task{% endblock %}
+{% block content %}
     <h1>Add Task</h1>
     <form method="post">
         {% csrf_token %}
@@ -11,6 +8,4 @@
         <button type="submit">Save Task</button>
     </form>
     <a href="{% url 'task_list' %}">Back to Tasks</a>
-</body>
-</html>
-
+{% endblock %}

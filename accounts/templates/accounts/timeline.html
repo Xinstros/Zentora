@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zentora Timeline</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Timeline{% endblock %}
+{% block content %}
     <h1>Zentora Project Timeline</h1>
     <p>Welcome, {{ user.username }}!</p>
     <a href="{% url 'task_list' %}">View Your Tasks</a>
     <a href="{% url 'request_list' %}">View Art Requests</a>
     <a href="{% url 'artwork_list' %}">View Your Artworks</a>
-</body>
-</html>
+{% endblock %}
