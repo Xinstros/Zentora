@@ -8,7 +8,10 @@
     {% endif %}
     <ul>
     {% for artwork in artworks %}
-        <li>{{ artwork.title }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }})</li>
+        <li>{{ artwork.title }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }}) 
+            <a href="{% url 'artwork_update' artwork.pk %}">Edit</a>
+            <a href="{% url 'artwork_delete' artwork.pk %}">Delete</a>
+        </li>
     {% empty %}
         <li>No artworks yet.</li>
     {% endfor %}

@@ -13,7 +13,7 @@
     <h2>Artworks</h2>
     <ul>
     {% for artwork in artworks %}
-        <li>{{ artwork.title }} by {{ artwork.user.username }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %}</li>
+        <li>{{ artwork.title }} by {{ artwork.user.username }} - {{ artwork.license }} {% if artwork.price %}${{ artwork.price }}{% endif %} (Uploaded: {{ artwork.created_at|date:"Y-m-d" }})</li>
     {% empty %}
         <li>No artworks available.</li>
     {% endfor %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import SignupForm, TaskForm, RequestForm, ArtworkForm
 from .models import Task, Request, Artwork
 
@@ -105,8 +106,10 @@ def request_delete(request, pk):
 
 def marketplace(request):
     requests = Request.objects.all()
+    artworks = Artwork.objects.all()
     return render(request, 'accounts/marketplace.html', {
         'requests': requests,
+        'artworks': artworks,
         'is_dev': request.user.is_authenticated and request.user.account_type == 'DEV'
     })
 
@@ -129,6 +132,28 @@ def artwork_list(request):
         return redirect('login')
     artworks = Artwork.objects.filter(user=request.user)
     return render(request, 'accounts/artwork_list.html', {'artworks': artworks})
+
+def artwork_update(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    artwork = Artwork.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = ArtworkForm(request.POST, request.FILES, instance=artwork)
+        if form.is_valid():
+            form.save()
+            return redirect('artwork_list')
+    else:
+        form = ArtworkForm(instance=artwork)
+    return render(request, 'accounts/artwork_form.html', {'form': form})
+
+def artwork_delete(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    artwork = Artwork.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        artwork.delete()
+        return redirect('artwork_list')
+    return render(request, 'accounts/artwork_delete.html', {'artwork': artwork})
 
 def settings(request):
     return render(request, 'accounts/settings.html', {})

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Upload Artwork{% endblock %}
 {% block content %}
-    <h1>Upload Artwork</h1>
+    <h1>{% if form.instance.pk %}Edit Artwork{% else %}Upload Artwork{% endif %}</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Upload</button>
+        <button type="submit">{% if form.instance.pk %}Update{% else %}Upload{% endif %}</button>
     </form>
     <a href="{% url 'artwork_list' %}">Back to Artworks</a>
 {% endblock %}

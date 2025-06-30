@@ -18,5 +18,7 @@ urlpatterns = [
     path('marketplace/', views.marketplace, name='marketplace'),
     path('artwork/', views.artwork_list, name='artwork_list'),
     path('artwork/create/', views.artwork_create, name='artwork_create'),
+    path('artwork/<int:pk>/update/', views.artwork_update, name='artwork_update'),
+    path('artwork/<int:pk>/delete/', views.artwork_delete, name='artwork_delete'),
     path('settings/', views.settings, name='settings'),
 ]
