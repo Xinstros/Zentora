@@ -5,7 +5,9 @@
 </head>
 <body>
     <h1>Art Request Marketplace</h1>
+    {% if is_dev %}
     <a href="{% url 'timeline' %}">Back to Timeline</a>
+    {% endif %}
     <ul>
     {% for request in requests %}
         <li>{{ request.title }} by {{ request.user.username }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</li>

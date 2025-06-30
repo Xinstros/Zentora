@@ -105,4 +105,7 @@ def request_delete(request, pk):
 
 def marketplace(request):
     requests = Request.objects.all()
-    return render(request, 'accounts/marketplace.html', {'requests': requests})
+    return render(request, 'accounts/marketplace.html', {
+        'requests': requests,
+        'is_dev': request.user.is_authenticated and request.user.account_type == 'DEV'
+    })
