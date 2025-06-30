@@ -80,3 +80,29 @@ def request_list(request):
         return redirect('login')
     requests = Request.objects.filter(user=request.user)
     return render(request, 'accounts/request_list.html', {'requests': requests})
+
+def request_update(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    request_obj = Request.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        form = RequestForm(request.POST, instance=request_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('request_list')
+    else:
+        form = RequestForm(instance=request_obj)
+    return render(request, 'accounts/request_form.html', {'form': form})
+
+def request_delete(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    request_obj = Request.objects.get(pk=pk, user=request.user)
+    if request.method == 'POST':
+        request_obj.delete()
+        return redirect('request_list')
+    return render(request, 'accounts/request_delete.html', {'request': request_obj})
+
+def marketplace(request):
+    requests = Request.objects.all()
+    return render(request, 'accounts/marketplace.html', {'requests': requests})

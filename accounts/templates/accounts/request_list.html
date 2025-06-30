@@ -9,7 +9,10 @@
     <a href="{% url 'timeline' %}">Back to Timeline</a>
     <ul>
     {% for request in requests %}
-        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</li>
+        <li>{{ request.title }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})
+            <a href="{% url 'request_update' request.pk %}">Edit</a>
+            <a href="{% url 'request_delete' request.pk %}">Delete</a>
+        </li>
     {% empty %}
         <li>No requests yet.</li>
     {% endfor %}

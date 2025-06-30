@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zentora Marketplace</title>
+</head>
+<body>
+    <h1>Art Request Marketplace</h1>
+    <a href="{% url 'timeline' %}">Back to Timeline</a>
+    <ul>
+    {% for request in requests %}
+        <li>{{ request.title }} by {{ request.user.username }} - {{ request.reward_type }} ${{ request.reward_amount }} (Due: {{ request.deadline|date:"Y-m-d" }})</li>
+    {% empty %}
+        <li>No requests available.</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

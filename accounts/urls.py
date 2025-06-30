@@ -12,4 +12,7 @@ urlpatterns = [
     path('tasks/<int:pk>/delete/', views.task_delete, name='task_delete'),
     path('requests/', views.request_list, name='request_list'),
     path('requests/create/', views.request_create, name='request_create'),
+    path('requests/<int:pk>/update/', views.request_update, name='request_update'),
+    path('requests/<int:pk>/delete/', views.request_delete, name='request_delete'),
+    path('marketplace/', views.marketplace, name='marketplace'),
 ]
